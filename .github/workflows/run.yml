@@ -69,6 +69,7 @@ jobs:
           mkdir -p singbox/version2
           mkdir -p singbox/version3
           mkdir -p singbox/version4
+          mkdir -p singbox/version5
           mkdir -p meta/domain
           mkdir -p meta/ipcidr
           mkdir -p meta/classical
@@ -623,13 +624,14 @@ jobs:
               awk 'sub(/"version": 1,/, "\"version\": 2,", $0) 1' "${file}" > "singbox/version2/$(basename "$file")"
               awk 'sub(/"version": 1,/, "\"version\": 3,", $0) 1' "${file}" > "singbox/version3/$(basename "$file")"
               awk 'sub(/"version": 1,/, "\"version\": 4,", $0) 1' "${file}" > "singbox/version4/$(basename "$file")"
+              awk 'sub(/"version": 1,/, "\"version\": 5,", $0) 1' "${file}" > "singbox/version5/$(basename "$file")"
           done
 
       - name: Download and unzip `sing-box core`
         run: |
-          # singbox_version=$(curl -fsSL https://github.com/SagerNet/sing-box/releases | grep -oE '/SagerNet/sing-box/releases/tag/[^\"]*'| sort -r | head -1 | sed 's/.*v//')
+          # singbox_version=$(curl -fsSL https://github.com/SagerNet/sing-box/releases | grep -oE '/SagerNet/sing-box/releases/tag/[^\"]*'| sort -rV | head -1 | sed 's/.*v//')
 
-          singbox_version="1.13.0"
+          singbox_version="1.14.0-alpha.10"
 
           wget "https://github.com/SagerNet/sing-box/releases/download/v${singbox_version}/sing-box-${singbox_version}-linux-amd64.tar.gz" -O - | tar -zxf -
 
