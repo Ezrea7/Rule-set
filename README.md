@@ -79,7 +79,10 @@ singbox/
    ├── version3/
    │      ├──dmca.srs
    │      └──dmca.json
-   └── version4/
+   ├── version4/
+   │      ├──dmca.srs
+   │      └──dmca.json
+   └── version5/
           ├──dmca.srs
           └──dmca.json
 ```
@@ -2548,4 +2551,4 @@ sing-box 文档关于 [domain_suffix 行为更新](https://sing-box.sagernet.org
 
 ## 项目 Star 数增长趋势
 
-[![Stargazers over time](https://starchart.cc/QuixoticHeart/rule-set.svg)](https://starchart.cc/QuixoticHeart/rule-set)
+[![Stargazers over time](https://starchart.cc/QuixoticHeart/rule-set.svg?variant=adaptive)](https://starchart.cc/QuixoticHeart/rule-set)
