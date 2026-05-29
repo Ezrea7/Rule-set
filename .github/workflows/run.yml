@@ -253,20 +253,10 @@ jobs:
 
       - name: Copy single files
         run: |
-          src_dir="download/meta"
-          dst_dir="meta"
-
-          src_names=('iplocation-direct' 'microsoft@cn' 'tld-!cn')
-          dst_names=('iplocation-direct' 'microsoft-cn' 'tld-proxy')
-
-          for i in "${!dst_names[@]}"; do
-              src_file="$src_dir/${src_names[i]}.list"
-              dst_file="$dst_dir/${dst_names[i]}.list"
-              cp "$src_file" "$dst_file"
-          done
-
-          cp "download/special/cn-cidr.list" "meta/cncidr.list"
-          cp "custom/apns.list" "meta/apns.list"
+          cp 'download/meta/microsoft@cn.list' 'meta/microsoft-cn.list'
+          cp 'download/meta/tld-!cn.list' 'meta/tld-proxy.list'
+          cp 'download/special/cn-cidr.list' 'meta/cncidr.list'
+          cp 'custom/apns.list' 'meta/apns.list'
 
       - name: Merge files
         run: |
@@ -305,6 +295,20 @@ jobs:
               | \
               grep -vxF -f 'custom/reject-need-to-remove.list' \
           > meta/adrules.list
+
+      - name: Merge cdn file
+        run: |
+          cat 'download/special/cdn-domains.list' \
+              'download/special/download-domains.list' \
+              'download/special/cdn-surge.list' \
+              'download/special/download-surge.list' \
+              'download/meta/category-cdn-!cn.list' \
+              'custom/cdn.list' \
+          > meta/cdn.list
+
+      - name: Merge iplocation-direct file
+        run: |
+          grep -vxF -f 'meta/cdn.list' 'download/meta/iplocation-direct.list' > 'meta/iplocation-direct.list'
 
       - name: Merge iplocation-proxy file
         run: |
@@ -455,16 +459,6 @@ jobs:
           cat 'download/surge/Reddit.list' \
               'download/meta/category-forums.list' \
           > meta/forum.list
-
-      - name: Merge cdn file
-        run: |
-          cat 'download/special/cdn-domains.list' \
-              'download/special/download-domains.list' \
-              'download/special/cdn-surge.list' \
-              'download/special/download-surge.list' \
-              'download/meta/category-cdn-!cn.list' \
-              'custom/cdn.list' \
-          > meta/cdn.list
 
       - name: Merge speedtest file
         run: |
